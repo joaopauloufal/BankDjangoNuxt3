@@ -37,3 +37,25 @@ class Client(models.Model):
 
     def __str__(self):
         return f'{self.cpf_cnpj} - {self.name}'
+
+
+class Account(models.Model):
+
+    ACCOUNT_TYPES = (
+      ('PHYSICAL', 'Physical person'),
+      ('LEGAL', 'Legal person'),
+    )
+
+    number = models.CharField(verbose_name='Number', max_length=80)
+    balance = models.DecimalField(verbose_name='Balance', decimal_places=2, default=0.00, max_digits=19)
+    agency = models.ForeignKey(Agency, verbose_name='Agency', on_delete=models.PROTECT, related_name='accounts')
+    client = models.ForeignKey(Client, verbose_name='Client', on_delete=models.PROTECT, related_name='accounts')
+    type = models.CharField(verbose_name='Type', max_length=15, choices=ACCOUNT_TYPES)
+
+    class Meta:
+        ordering = ['number']
+        verbose_name = 'Account'
+        unique_together = [['client', 'type', 'agency']]
+
+    def __str__(self):
+        return f'{self.number} - {self.agency}: {self.client.name} ({self.type})'
