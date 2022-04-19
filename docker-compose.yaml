@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./backend
+    entrypoint: /usr/src/app/.docker/entrypoint.sh
+    user: "${UID}:${GID}"
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - 8000:8000
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    entrypoint: /usr/src/app/.docker/entrypoint.sh
+    user: "${UID}:${GID}"
+    volumes:
+      - ./frontend:/usr/src/app
+    ports: 
+      - 3000:3000
+    environment: 
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+
+  db:
+    image: postgres:14.2-alpine
+    volumes:
+      - ./backend/.docker/dbdata:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=bank_django_nuxt3
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
