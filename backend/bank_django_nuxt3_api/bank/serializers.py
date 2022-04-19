@@ -27,9 +27,9 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ['id', 'number', 'type', 'client', 'balance', 'agency']
 
 
-class AcountBankDepositSerializer(serializers.Serializer):
+class AccountBankDepositSerializer(serializers.Serializer):
     value = serializers.DecimalField(max_digits=19, decimal_places=2, required=True, min_value=0.01)
 
 
-class AcountWithdrawSerializer(serializers.Serializer):
+class AccountWithdrawSerializer(serializers.Serializer):
     valor = serializers.DecimalField(max_digits=19, decimal_places=2, required=True, min_value=0.01)
