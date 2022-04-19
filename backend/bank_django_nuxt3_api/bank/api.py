@@ -1,8 +1,9 @@
 from rest_framework import viewsets, filters, response, status, serializers
 from rest_framework.decorators import action
-from .models import Bank, Agency, Account
+from .models import Bank, Agency, Account, Client
 from .serializers import (
-    AccountBankDepositSerializer, AccountWithdrawSerializer, BankSerializer, AgencySerializer, AccountSerializer
+    AccountBankDepositSerializer, AccountWithdrawSerializer, BankSerializer, AgencySerializer, AccountSerializer,
+    ClientSerializer
 )
 from django.db.transaction import atomic
 from decimal import Decimal
@@ -31,6 +32,19 @@ class AgencyViewSet(viewsets.ModelViewSet):
     def accounts(self, request, *args, **kwargs):
         agency = self.get_object()
         accounts = self.get_serializer(agency.accounts, many=True)
+        return response.Response(accounts.data)
+
+
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['cpf_cnpj']
+
+    @action(detail=True, methods=['get'], serializer_class=AccountSerializer)
+    def accounts(self, request, *args, **kwargs):
+        client = self.get_object()
+        accounts = self.get_serializer(client.accounts, many=True)
         return response.Response(accounts.data)
 
 
