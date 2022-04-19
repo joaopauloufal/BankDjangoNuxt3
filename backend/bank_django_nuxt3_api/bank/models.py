@@ -25,3 +25,15 @@ class Agency(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.name}'
+
+
+class Client(models.Model):
+    name = models.CharField(verbose_name='Name', max_length=120)
+    cpf_cnpj = models.CharField(verbose_name='CPF/CNPJ', max_length=18, unique=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Client'
+
+    def __str__(self):
+        return f'{self.cpf_cnpj} - {self.name}'
