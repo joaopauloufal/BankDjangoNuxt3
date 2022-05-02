@@ -60,7 +60,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         account = self.get_object()
         serializer = AccountBankDepositSerializer(data=request.data)
         if serializer.is_valid():
-            account.balance = Decimal(serializer.data['value'])
+            account.balance += Decimal(serializer.data['value'])
             account.save()
             return response.Response({'message': 'Deposit made successfully!'})
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

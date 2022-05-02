@@ -32,12 +32,6 @@ class ClientFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Client
 
-    def physical_client(self):
-        self.cpf_cnpj = factory.Sequence(lambda n: faker.numerify('###.###.###-##'))
-
-    def legal_client(self):
-        self.cpf_cnpj = factory.Sequence(lambda n: faker.numerify('##.###.###/####-##'))
-
 
 class AccountFactory(factory.django.DjangoModelFactory):
 
@@ -49,9 +43,3 @@ class AccountFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Account
-
-    def physical_account(self):
-        self.type = 'PHYSICAL'
-
-    def legal_account(self):
-        self.type = 'LEGAL'

@@ -32,4 +32,4 @@ class AccountBankDepositSerializer(serializers.Serializer):
 
 
 class AccountWithdrawSerializer(serializers.Serializer):
-    valor = serializers.DecimalField(max_digits=19, decimal_places=2, required=True, min_value=0.01)
+    value = serializers.DecimalField(max_digits=19, decimal_places=2, required=True, min_value=0.01)
