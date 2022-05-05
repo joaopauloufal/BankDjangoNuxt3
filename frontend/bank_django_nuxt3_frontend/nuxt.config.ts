@@ -10,4 +10,7 @@ export default defineNuxtConfig({
   build: {
     transpile: [/oruga/]
   },
+  typescript: {
+    shim: false
+  }
 })
