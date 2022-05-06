@@ -2,18 +2,18 @@ import { $fetch } from 'ohmyfetch'
 import { NotificationProgrammatic } from '@oruga-ui/oruga-next'
 
 const options:object = {
-  baseURL: '/api/v1/',
+  baseURL: 'http://localhost:8000/api/v1/',
 }
 
 const client = $fetch.create(options)
 
-export default {
+export default class ApiRepository {
 
-  async get(url:string):Promise<any> {
+  static async get(url:string):Promise<any> {
     return client(url)
-  },
+  }
 
-  async post(url:string, data:object):Promise<any> {
+  static async post(url:string, data:object):Promise<any> {
     return client(url, { method: 'POST', body: data })
       .then(response => Promise.resolve(response))
       .catch((error) => {
@@ -26,9 +26,9 @@ export default {
           }
         return Promise.reject(error)
       });
-  },
+  }
 
-  async put(url:string, data:object):Promise<any> {
+  static async put(url:string, data:object):Promise<any> {
     return client(url, { method: 'PUT', body: data })
       .then(response => Promise.resolve(response))
       .catch((error) => {
@@ -41,9 +41,9 @@ export default {
         }
       return Promise.reject(error)
     });
-  },
+  }
 
-  async delete(url:string):Promise<any> {
+  static async delete(url:string):Promise<any> {
     return client(url, { method: 'DELETE' })
       .then(response => Promise.resolve(response))
       .catch((error) => {
@@ -56,5 +56,5 @@ export default {
         }
       return Promise.reject(error)
     });
-  },
+  }
 }
