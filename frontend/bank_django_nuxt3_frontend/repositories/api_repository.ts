@@ -10,20 +10,31 @@ const client = $fetch.create(options)
 export default class ApiRepository {
 
   static async get(url:string):Promise<any> {
-    return client(url)
+    return await client(url).then(response => Promise.resolve(response)).catch((error) => {
+      NotificationProgrammatic.open({
+        message: 'There was an error fetching the data. Please try again.',
+        variant: 'danger',
+        rootClass: 'toast-notification',
+        position: 'top',
+        duration: 3000,
+      })
+      return Promise.reject(error)
+    })
   }
 
   static async post(url:string, data:object):Promise<any> {
-    return client(url, { method: 'POST', body: data })
+    return await client(url, { method: 'POST', body: data })
       .then(response => Promise.resolve(response))
       .catch((error) => {
-          if (error.response.status === 400) {
-              NotificationProgrammatic.open({
-                  message: error.response.data.message,
-                  variant: 'danger',
-                  duration: 3000
-              })
-          }
+        if (error.response.status === 400) {
+          NotificationProgrammatic.open({
+            message: 'There are errors in the form. Please correct them before submitting again.',
+            variant: 'danger',
+            rootClass: 'toast-notification',
+            position: 'top',
+            duration: 3000,
+          })
+        }        
         return Promise.reject(error)
       });
   }

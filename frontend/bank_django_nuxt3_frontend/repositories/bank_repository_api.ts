@@ -7,4 +7,8 @@ export default class BankRepositoryApi {
     return ApiRepository.get(`banks/`)
   }
 
+  static add(params:any):any {
+    return ApiRepository.post(`banks/`, params)
+  }
+
 }

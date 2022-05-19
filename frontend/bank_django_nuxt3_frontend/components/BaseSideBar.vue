@@ -3,7 +3,7 @@
     <p class="menu-label is-hidden-touch">Main Menu</p>
     <ul class="menu-list">
       <li v-for="(item, key) of items" :key="key">
-        <NuxtLink :to="item.to" exact-active-class="is-active">
+        <NuxtLink :to="item.to" active-class="is-active">
           <o-icon pack="fas" :icon="item.icon" /> {{ item.title }}
         </NuxtLink>
       </li>
