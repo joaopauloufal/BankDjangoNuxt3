@@ -12,6 +12,7 @@ export function useBank (){
       name: null
     }
   })
+  const bank = useState<Bank>('bank', () => null)
 
   const getBanks = async ():Promise<void> => {
     loading.value = true
@@ -22,9 +23,34 @@ export function useBank (){
     })
   }
 
+  const getBank = async (id:number):Promise<void> => {
+    loading.value = true
+    await BankRepositoryApi.get(id).then((response) => {
+      bank.value = response
+    }).finally(() => {
+      loading.value = false
+    })
+  }
+
   const addBank = async (params:any):Promise<any> => {
     loading.value = true
     return await BankRepositoryApi.add(params).then((response:any) => {
+      clearErrors()
+      return Promise.resolve(response)
+    }).catch((errors:any) => {
+      Object.keys(errors.data).forEach((value) => {
+        errors.data[value] = errors.data[value].toString()
+      })
+      bankErrors.value = errors.data
+      return Promise.reject(errors)
+    }).finally(() => {
+      loading.value = false
+    })
+  }
+
+  const editBank = async (params:any):Promise<any> => {
+    loading.value = true
+    return await BankRepositoryApi.update(params).then((response:any) => {
       clearErrors()
       return Promise.resolve(response)
     }).catch((errors:any) => {
@@ -53,13 +79,21 @@ export function useBank (){
       name: null
     }
   }
+  
+  const clearBank = ():void => {
+    bank.value = null
+  }
 
   return {
     addBank,
     deleteBank,
+    editBank,
     getBanks,
+    getBank,
     clearErrors,
+    clearBank,
     banks,
+    bank,
     bankErrors,
     loading
   }

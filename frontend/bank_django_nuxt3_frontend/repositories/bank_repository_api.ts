@@ -7,12 +7,20 @@ export default class BankRepositoryApi {
     return ApiRepository.get(`banks/`)
   }
 
+  static get(id:number):Promise<Bank> {
+    return ApiRepository.get(`banks/${id}/`)
+  }
+
   static add(params:any):Promise<any> {
     return ApiRepository.post(`banks/`, params)
   }
 
   static delete(bankId:number):Promise<any> {
     return ApiRepository.delete(`banks/${bankId}/`)
+  }
+
+  static update(params:any):Promise<any> {
+    return ApiRepository.put(`banks/${params.id}/`, params)
   }
 
 }

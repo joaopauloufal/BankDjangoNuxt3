@@ -38,14 +38,26 @@ import { NotificationProgrammatic } from '@oruga-ui/oruga-next'
 import Bank from '~~/types/bank';
 
   const props = defineProps<{
-    title: string
+    title: string,
+    initialData: Bank
   }>()
 
-  const formData: Bank = {
+  let formData = ref({
     id: '',
     bank_code: '',
     name: ''
-  }
+  })
+
+  const { addBank, bankErrors, clearErrors, clearBank, editBank, loading } = useBank()
+
+
+  onMounted(() => {
+    formData.value = props.initialData
+  })
+
+  onUnmounted(() => {
+    clearBank()
+  })
 
   const router = useRouter()
 
@@ -55,20 +67,31 @@ import Bank from '~~/types/bank';
   }
 
   async function submit():Promise<void>  {
-    await addBank(formData).then(() => {
-      NotificationProgrammatic.open({
-        message: 'Bank created successfully!',
-        variant: 'success',
-        rootClass: 'toast-notification',
-        position: 'top',
-        duration: 3000,
+    window.console.log()
+    if (formData.value.id != '') {
+      await editBank(formData.value).then(() => {
+        NotificationProgrammatic.open({
+          message: 'Bank updated successfully!',
+          variant: 'success',
+          rootClass: 'toast-notification',
+          position: 'top',
+          duration: 3000,
+        })
+        router.push('/banks')
       })
-      router.push('/banks')
-    })
-  }  
-  
-  const { addBank, bankErrors, clearErrors, loading } = useBank()
+    } else {
+      await addBank(formData.value).then(() => {
+        NotificationProgrammatic.open({
+          message: 'Bank created successfully!',
+          variant: 'success',
+          rootClass: 'toast-notification',
+          position: 'top',
+          duration: 3000,
+        })
+        router.push('/banks')
+      })
+    }
 
-
+  }
 
 </script>

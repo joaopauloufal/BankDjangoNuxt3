@@ -36,10 +36,11 @@
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
                 <o-button
+                  tag="router-link"
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
-                  tag="nuxt-link"
+                  :to="`/banks/edit/${props.row.id}`"
                 />
                 <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
               </div>
