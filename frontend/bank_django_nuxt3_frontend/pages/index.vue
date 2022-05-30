@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <o-button variant="primary">Primary</o-button>
-    <o-button variant="success">Success</o-button>
-    <o-button variant="danger">Danger</o-button>
-    <o-button variant="warning">Warning</o-button>
-    <o-button variant="info">Info</o-button>
-  </div>
+  <section class="section">
+    <div class="columns">
+      <div class="column is-size-4 is-9">Home</div>
+    </div>
+  </section>
 </template>
+
+<script setup lang="ts">
+
+definePageMeta({
+  layout: 'custom'
+})
+ 
+</script>
