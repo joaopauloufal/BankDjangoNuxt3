@@ -9,7 +9,7 @@
         <o-loading :active.sync="loading">
           <o-icon pack="fas" icon="sync-alt" size="large" spin></o-icon>
         </o-loading>
-        <FormBank v-if="bank" title="New Bank" :initial-data="bank"/>
+        <FormBank v-if="bank" title="Edit Bank" :initial-data="bank"/>
       </div>
     </div>
   </div>
