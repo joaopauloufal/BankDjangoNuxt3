@@ -41,7 +41,7 @@
                   icon-pack="fas"
                   tag="nuxt-link"
                 />
-                <o-button variant="danger" icon-pack="fas" icon-right="trash" v-slot="props"/>
+                <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
               </div>
             </o-table-column>
             <template #empty>
@@ -54,12 +54,31 @@
 </template>
 <script setup lang="ts">
 
+import { ModalProgrammatic } from '@oruga-ui/oruga-next'
+import BaseConfirmDialog from '../../components/BaseConfirmDialog.vue'
+
 definePageMeta({
   layout: 'custom'
 })
 
-const { getBanks, banks, loading } = useBank()
+const { getBanks, deleteBank, banks, loading } = useBank()
 
 onMounted(() => getBanks())
+
+const openConfirmModal = async (data:any):Promise<void> => {
+  const instance = ModalProgrammatic.open({
+      component: BaseConfirmDialog, 
+      props: { 
+        title: `Delete bank #${data.id}`,
+        message: `Are you sure you want to delete bank #${data.id}?`,
+      }
+  })
+
+  const result = await instance.promise
+
+  if (result.action === 'ok') {
+    await deleteBank(data.id)
+  }
+}
  
 </script>

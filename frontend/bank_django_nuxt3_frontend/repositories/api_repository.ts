@@ -45,7 +45,7 @@ export default class ApiRepository {
       .catch((error) => {
         if (error.response.status === 400) {
             NotificationProgrammatic.open({
-                message: error.response.data.message,
+                message: 'There are errors in the form. Please correct them before submitting again.',
                 variant: 'danger',
                 duration: 3000
             })
@@ -60,9 +60,9 @@ export default class ApiRepository {
       .catch((error) => {
         if (error.response.status === 400) {
           NotificationProgrammatic.open({
-              message: error.response.data.message,
-              variant: 'danger',
-              duration: 3000
+            message: error.response.data.message,
+            variant: 'danger',
+            duration: 3000
           })
         }
       return Promise.reject(error)

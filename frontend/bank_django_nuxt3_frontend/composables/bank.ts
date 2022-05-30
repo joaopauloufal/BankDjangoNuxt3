@@ -5,7 +5,7 @@ import BankErrors from '~~/types/bankErrors'
 export function useBank (){
 
   const banks = useState<Bank[]>('banks', () => [])
-  const loading = useState<boolean>('loading', () => false)
+  const loading = useState<boolean>('loadingBank', () => false)
   const bankErrors = useState<BankErrors>('bankErrors', () => {
     return {
       bank_code: null,
@@ -38,6 +38,15 @@ export function useBank (){
     })
   }
 
+  const deleteBank = async(bankId:number):Promise<any> => {
+    loading.value = true
+    return await BankRepositoryApi.delete(bankId).then(() => {
+      getBanks()
+    }).finally(() => {
+      loading.value = false
+    })
+  }
+
   const clearErrors = ():void => {
     bankErrors.value = {
       bank_code: null,
@@ -47,6 +56,7 @@ export function useBank (){
 
   return {
     addBank,
+    deleteBank,
     getBanks,
     clearErrors,
     banks,
