@@ -12,6 +12,7 @@ class AgencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Agency
         fields = ['id', 'name', 'bank', 'agency_code']
+        depth = 1
 
 
 class ClientSerializer(serializers.ModelSerializer):

@@ -43,7 +43,7 @@ import Bank from '~~/types/bank';
   }>()
 
   let formData = ref({
-    id: '',
+    id: -1,
     bank_code: '',
     name: ''
   })
@@ -68,7 +68,7 @@ import Bank from '~~/types/bank';
 
   async function submit():Promise<void>  {
     window.console.log()
-    if (formData.value.id != '') {
+    if (formData.value.id != -1) {
       await editBank(formData.value).then(() => {
         NotificationProgrammatic.open({
           message: 'Bank updated successfully!',

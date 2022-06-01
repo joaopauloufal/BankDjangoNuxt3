@@ -24,6 +24,11 @@
       icon: 'bank',
       to: { name: 'banks' },
     },
+    {
+      title: 'Agencies',
+      icon: 'house-user',
+      to: { name: 'agencies' },
+    },
  ]
 
 </script>

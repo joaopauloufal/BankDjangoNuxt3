@@ -1,5 +1,5 @@
 interface Bank {
-  id: string,
+  id: number,
   bank_code: string,
   name: string
 }

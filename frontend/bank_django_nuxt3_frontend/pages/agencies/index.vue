@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="columns">
-      <div class="column is-size-4 is-9">Banks</div>
+      <div class="column is-size-4 is-9">Agencies</div>
       <div class="column">
         <o-button
           variant="primary"
@@ -9,9 +9,9 @@
           class="is-pulled-right"
           icon-left="plus"
           icon-pack="fas"
-          to="/banks/create"
+          to="/agencies/create"
         >
-          New Bank
+          New Agency
         </o-button>
       </div>
     </div>
@@ -21,17 +21,20 @@
       <div class="columns">
         <div class="column">
           <o-table
-            v-if="banks"
-            :data="banks"
+            v-if="agencies"
+            :data="agencies"
             per-page="10"
             paginated
             default-sort="name"
           >
-            <o-table-column label="Bank Code" field="bank_code" v-slot="props" sortable searchable>
-              {{ props.row.bank_code }}
+            <o-table-column label="Agency Code" field="agency_code" v-slot="props" sortable searchable>
+              {{ props.row.agency_code }}
             </o-table-column>
             <o-table-column label="Name" field="name" v-slot="props" sortable searchable>
               {{ props.row.name }}
+            </o-table-column>
+            <o-table-column label="Bank" field="agency" v-slot="props">
+              {{ props.row.bank.bank_code }} - {{ props.row.bank.name }}
             </o-table-column>
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
@@ -40,13 +43,13 @@
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
-                  :to="`/banks/edit/${props.row.id}`"
+                  :to="`/agencies/edit/${props.row.id}`"
                 />
                 <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
               </div>
             </o-table-column>
             <template #empty>
-              <div class="has-text-centered">There are no registered banks.</div>
+              <div class="has-text-centered">There are no registered agencies.</div>
             </template>
           </o-table>
         </div>
@@ -62,25 +65,25 @@ definePageMeta({
   layout: 'custom'
 })
 
-const { getBanks, deleteBank, clearBanks, banks, loading } = useBank()
+const { getAgencies, deleteAgency, clearAgencies, agencies, loading } = useAgency()
 
-onMounted(() => getBanks())
+onMounted(() => getAgencies())
 
-onUnmounted(() => clearBanks())
+onUnmounted(() => clearAgencies())
 
 const openConfirmModal = async (data:any):Promise<void> => {
   const instance = ModalProgrammatic.open({
       component: BaseConfirmDialog, 
       props: { 
-        title: `Delete bank #${data.id}`,
-        message: `Are you sure you want to delete bank #${data.id}?`,
+        title: `Delete agency #${data.id}`,
+        message: `Are you sure you want to delete agency #${data.id}?`,
       }
   })
 
   const result = await instance.promise
 
   if (result.action === 'ok') {
-    await deleteBank(data.id)
+    await deleteAgency(data.id)
   }
 }
  

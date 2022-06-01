@@ -15,8 +15,8 @@ export default class BankRepositoryApi {
     return ApiRepository.post(`banks/`, params)
   }
 
-  static delete(bankId:number):Promise<any> {
-    return ApiRepository.delete(`banks/${bankId}/`)
+  static delete(id:number):Promise<any> {
+    return ApiRepository.delete(`banks/${id}/`)
   }
 
   static update(params:any):Promise<any> {
