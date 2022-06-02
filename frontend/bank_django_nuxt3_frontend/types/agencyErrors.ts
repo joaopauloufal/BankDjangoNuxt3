@@ -1,6 +1,6 @@
 interface AgencyErrors {
   agency_code: any,
-  bank_id: any
+  bank: any
   name: any
 }
 
