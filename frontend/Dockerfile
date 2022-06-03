@@ -1,4 +1,4 @@
-FROM node:16.14.2-alpine3.15
+FROM node:16.15.0-alpine3.15
 
 RUN apk add --no-cache nano bash g++ gcc libgcc libstdc++ linux-headers make yarn
 
