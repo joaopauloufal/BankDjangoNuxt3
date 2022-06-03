@@ -84,6 +84,10 @@ export function useBank (){
     bank.value = null
   }
 
+  const clearBanks = ():void => {
+    banks.value = []
+  }
+
   return {
     addBank,
     deleteBank,
@@ -92,6 +96,7 @@ export function useBank (){
     getBank,
     clearErrors,
     clearBank,
+    clearBanks,
     banks,
     bank,
     bankErrors,

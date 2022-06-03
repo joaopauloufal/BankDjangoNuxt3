@@ -22,7 +22,7 @@ definePageMeta({
 })
 
 const initialData:Bank = {
-  id: '',
+  id: -1,
   bank_code: '',
   name: ''
 }

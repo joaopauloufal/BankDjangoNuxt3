@@ -11,7 +11,16 @@ class BankSerializer(serializers.ModelSerializer):
 class AgencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Agency
-        fields = ['id', 'name', 'bank', 'agency_code']
+        fields = ['id', 'name', 'agency_code', 'bank']
+        depth = 1
+
+    def __init__(self, *args, **kwargs):
+        super(AgencySerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
 
 
 class ClientSerializer(serializers.ModelSerializer):
