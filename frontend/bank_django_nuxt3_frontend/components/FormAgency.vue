@@ -33,7 +33,7 @@
           key-name="name"
           key-value="id"
           entrypoint="banks/"
-          initial-value=""
+          :initial-value="formData.bank"
           :return-object="false"
           v-model="formData.bank"
         />
@@ -60,7 +60,7 @@ import Agency from '~~/types/agency';
   let formData = ref({
     id: -1,
     agency_code: '',
-    bank: '',
+    bank: '' as any,
     name: ''
   })
 
@@ -68,7 +68,12 @@ import Agency from '~~/types/agency';
 
 
   onMounted(() => {
-    formData.value = props.initialData
+    formData.value = {
+      id: props.initialData.id,
+      agency_code: props.initialData.agency_code,
+      bank: props.initialData.bank.id ?? '',
+      name: props.initialData.name
+    }
   })
 
   onUnmounted(() => {

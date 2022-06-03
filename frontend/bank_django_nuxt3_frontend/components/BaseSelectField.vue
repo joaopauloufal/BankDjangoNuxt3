@@ -19,7 +19,7 @@ const props = defineProps<{
   keyName: string,
   keyValue: string,
   entrypoint: string,
-  initialValue: string | number,
+  initialValue: any,
   returnObject: boolean
 }>()
 
@@ -27,8 +27,8 @@ const emit = defineEmits<{
   (event: 'input', value:any):void
 }>()
 
-let records = ref([])
-let selected = ref('')
+const records = ref([])
+const selected = ref('')
 
 onMounted(() => {
   getDataFromApi()
@@ -46,20 +46,23 @@ watch(() => selected, (currentValue, oldValue) => {
 
 function initValue():void {
   if (props.initialValue && props.initialValue !== '') {
-    records.value.filter((item:any) => {
-      if (item[props.keyValue] === props.initialValue) {
+    records.value.forEach((item) => {
+      if (item[props.keyValue] == props.initialValue) {
         selected.value = item[props.keyValue]
         return
       }
     })
+    
   }
 }
+
 
 async function getDataFromApi():Promise<void> {
   await ApiRepository.get(props.entrypoint).then((response:any)=>{
     records.value = response
     initValue()
   })
+  
 }
 
 </script>
