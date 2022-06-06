@@ -47,7 +47,7 @@ const props = defineProps<{
   initialData: Client
 }>()
 
-let formData = ref({
+const formData = ref({
   id: -1,
   cpf_cnpj: '',
   name: ''

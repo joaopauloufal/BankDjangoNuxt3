@@ -42,7 +42,7 @@ import Bank from '~~/types/bank';
     initialData: Bank
   }>()
 
-  let formData = ref({
+  const formData = ref({
     id: -1,
     bank_code: '',
     name: ''

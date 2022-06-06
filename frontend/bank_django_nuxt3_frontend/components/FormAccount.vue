@@ -87,7 +87,7 @@ import Account from '~~/types/account';
     initialData: Account
   }>()
 
-  let formData = ref({
+  const formData = ref({
     id: -1,
     type: 'PHYSICAL',
     client: '' as any,

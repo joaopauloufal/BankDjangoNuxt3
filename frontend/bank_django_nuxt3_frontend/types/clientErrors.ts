@@ -1,6 +1,6 @@
 interface ClientErrors {
-  name: any,
-  cpf_cnpj: any
+  name: Array<string>,
+  cpf_cnpj: Array<string>
 }
 
  export default ClientErrors
