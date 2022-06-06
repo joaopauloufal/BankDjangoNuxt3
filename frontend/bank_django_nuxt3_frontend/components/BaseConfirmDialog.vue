@@ -11,9 +11,9 @@
       <section class="modal-card-body">
           <p>{{ message }}</p>
       </section>
-      <footer class="modal-card-foot">
-          <o-button variant="danger" @click="$emit('close', { action: 'cancel', method: 'x' })">Cancel</o-button>
-          <o-button variant="primary" @click="$emit('close', { action: 'ok'})">OK</o-button>
+      <footer class="modal-card-foot is-justify-content-flex-end">
+        <o-button variant="primary" @click="$emit('close', { action: 'ok'})">OK</o-button>
+        <o-button variant="danger" @click="$emit('close', { action: 'cancel', method: 'x' })">Cancel</o-button>
       </footer>
   </div>
 </template>
