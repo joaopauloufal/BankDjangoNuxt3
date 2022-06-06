@@ -29,6 +29,11 @@
       icon: 'house-user',
       to: { name: 'agencies' },
     },
+    {
+      title: 'Clients',
+      icon: 'user-friends',
+      to: { name: 'clients' },
+    },
  ]
 
 </script>

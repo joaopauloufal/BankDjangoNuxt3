@@ -70,11 +70,11 @@ onUnmounted(() => clearBanks())
 
 const openConfirmModal = async (data:any):Promise<void> => {
   const instance = ModalProgrammatic.open({
-      component: BaseConfirmDialog, 
-      props: { 
-        title: `Delete bank #${data.id}`,
-        message: `Are you sure you want to delete bank #${data.id}?`,
-      }
+    component: BaseConfirmDialog, 
+    props: { 
+      title: `Delete bank #${data.id}`,
+      message: `Are you sure you want to delete bank #${data.id}?`,
+    }
   })
 
   const result = await instance.promise

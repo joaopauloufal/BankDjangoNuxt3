@@ -9,7 +9,7 @@ export function useAgency () {
   const agencyErrors = useState<AgencyErrors>('agencyErrors', () => {
     return {
       name: null,
-      bank_id: null,
+      bank: null,
       agency_code: null
     }
   })
@@ -77,7 +77,7 @@ export function useAgency () {
   const clearErrors = ():void => {
     agencyErrors.value = {
       name: null,
-      bank_id: null,
+      bank: null,
       agency_code: null
     }
   }
