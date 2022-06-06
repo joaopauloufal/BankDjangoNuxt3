@@ -35,6 +35,14 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = ['id', 'number', 'type', 'client', 'balance', 'agency']
 
+    def __init__(self, *args, **kwargs):
+        super(AccountSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
+
 
 class AccountBankDepositSerializer(serializers.Serializer):
     value = serializers.DecimalField(max_digits=19, decimal_places=2, required=True, min_value=0.01)

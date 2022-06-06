@@ -34,6 +34,11 @@
       icon: 'user-friends',
       to: { name: 'clients' },
     },
+    {
+      title: 'Accounts',
+      icon: 'file-invoice-dollar',
+      to: { name: 'accounts' },
+    },
  ]
 
 </script>
