@@ -105,7 +105,14 @@ import Account from '~~/types/account';
 
 
   onMounted(() => {
-    formData.value = props.initialData
+    formData.value = {
+      id: props.initialData.id,
+      type: props.initialData.type,
+      client: props.initialData.client.id ?? '',
+      balance: props.initialData.balance,
+      agency: props.initialData.agency.id ?? '',
+      number: props.initialData.number
+    }
   })
 
   onUnmounted(() => {
