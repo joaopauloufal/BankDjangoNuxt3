@@ -7,6 +7,7 @@ enum AccountType {
 }
 
 interface Account {
+  id: number,
   number: string,
   type: AccountType,
   client: Client,
