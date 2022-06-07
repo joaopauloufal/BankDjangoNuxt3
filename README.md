@@ -1,6 +1,6 @@
 # Simple Bank
 
-[![Build Status](https://github.com/joaopauloufal/BankDjangoNuxt3/workflows/Build/badge.svg)](https://github.com/joaopauloufal/BankDjangoNuxt3/actions)
+[![Build-Test Status](https://github.com/joaopauloufal/BankDjangoNuxt3/workflows/Build-Test/badge.svg)](https://github.com/joaopauloufal/BankDjangoNuxt3/actions)
 
 Django, Nuxt3 with Vue 3 composable exercise.
 
