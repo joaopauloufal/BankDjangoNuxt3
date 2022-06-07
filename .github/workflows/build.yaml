@@ -16,6 +16,9 @@ jobs:
     - name: Run docker-compose
       run: docker-compose up -d
 
+    - name: Wait to service db starts
+      run: sleep 120
+
     - name: Run tests
       run: docker exec -i bank-django-nuxt3-api /bin/bash -c "python manage.py test"
       
