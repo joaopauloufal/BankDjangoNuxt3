@@ -23,4 +23,8 @@ export default class AccountRepositoryApi {
     return ApiRepository.put(`accounts/${params.id}/`, params)
   }
 
+  static deposit(params:any):Promise<any> {
+    return ApiRepository.put(`accounts/${params.id}/deposit/`, params)
+  }
+
 }

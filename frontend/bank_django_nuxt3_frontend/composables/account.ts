@@ -1,5 +1,6 @@
 import AccountRepositoryApi from "~~/repositories/account_repository"
 import Account from "~~/types/account"
+import AccountDepositWithdrawErrors from "~~/types/accountDepositWithdrawErrors"
 import AccountErrors from "~~/types/accountErrors"
 
 export function useAccount () {
@@ -13,6 +14,11 @@ export function useAccount () {
       client: null,
       balance: null,
       agency: null
+    }
+  })
+  const accountDepositWithdrawErrors = useState<AccountDepositWithdrawErrors>('accountDepositWithdrawErrors', () => {
+    return {
+      value: null
     }
   })
   const account = useState<Account>('account', () => null)
@@ -67,6 +73,22 @@ export function useAccount () {
     })
   }
 
+  const deposit = async (params:any):Promise<any> => {
+    loading.value = true
+    return await AccountRepositoryApi.deposit(params).then((response:any) => {
+      clearErrors()
+      return Promise.resolve(response)
+    }).catch((errors:any) => {
+      Object.keys(errors.data).forEach((value) => {
+        errors.data[value] = errors.data[value].toString()
+      })
+      accountDepositWithdrawErrors.value = errors.data
+      return Promise.reject(errors)
+    }).finally(() => {
+      loading.value = false
+    })
+  }
+
   const deleteAccount = async(bankId:number):Promise<any> => {
     loading.value = true
     return await AccountRepositoryApi.delete(bankId).then(() => {
@@ -83,6 +105,9 @@ export function useAccount () {
       client: null,
       balance: null,
       agency: null
+    }
+    accountDepositWithdrawErrors.value = {
+      value: null
     }
   }
 
@@ -103,9 +128,11 @@ export function useAccount () {
     clearErrors,
     clearAccount,
     clearAccounts,
+    deposit,
     accounts,
     account,
     accountErrors,
+    accountDepositWithdrawErrors,
     loading
   }
 }
