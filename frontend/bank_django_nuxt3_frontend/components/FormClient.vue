@@ -10,6 +10,19 @@
     </div>
     <div class="card-content">
       <o-field
+        label="Type"
+      >
+        <o-select placeholder="Select..." v-model="typeClient">
+          <option 
+            v-for="option in options"
+            :value="option.key"
+            :key="option.key"
+          >
+            {{option.description}}
+          </option>
+        </o-select>
+      </o-field>
+      <o-field
         label="CPF/CNPJ"
         :variant="clientErrors.cpf_cnpj ? 'danger': ''"
         :message="clientErrors.cpf_cnpj ? clientErrors.cpf_cnpj: ''"
@@ -17,7 +30,7 @@
         <o-input 
           v-model="formData.cpf_cnpj" 
           name="cpf_cnpj"
-          v-maska="'###.###.###-##'"
+          v-maska="mask"
         >
         </o-input>
       </o-field>
@@ -47,11 +60,20 @@ const props = defineProps<{
   initialData: Client
 }>()
 
+const typeClient = ref('PHYSICAL')
+
+const mask = ref('')
+
 const formData = ref({
   id: -1,
   cpf_cnpj: '',
   name: ''
 })
+
+const options = [
+  { key: 'PHYSICAL', description: 'Physical person' },
+  { key: 'LEGAL', description: 'Legal person' },
+]
 
 const { addClient, clientErrors, clearErrors, clearClient, editClient, loading } = useClient()
 
@@ -70,6 +92,14 @@ function cancel ():void  {
   clearErrors()
   router.push('/clients')
 }
+
+watch(() => typeClient.value, (currentValue) => {
+  if (currentValue == 'PHYSICAL') {
+    mask.value = '###.###.###-##'
+  } else if (currentValue == 'LEGAL') {
+    mask.value = '##.###.###/####-##'
+  }
+}, { immediate: true })
 
 async function submit():Promise<void>  {
   if (formData.value.id != -1) {

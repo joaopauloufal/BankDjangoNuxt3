@@ -26,6 +26,7 @@
             per-page="10"
             paginated
             default-sort="name"
+            striped
           >
             <o-table-column label="Agency Code" field="agency_code" v-slot="props" sortable searchable>
               {{ props.row.agency_code }}

@@ -26,6 +26,7 @@
             per-page="10"
             paginated
             default-sort="name"
+            striped
           >
             <o-table-column label="Bank Code" field="bank_code" v-slot="props" sortable searchable>
               {{ props.row.bank_code }}

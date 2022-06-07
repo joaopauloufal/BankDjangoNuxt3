@@ -26,6 +26,7 @@
             per-page="10"
             paginated
             default-sort="number"
+            striped
           >
             <o-table-column label="Number" field="number" v-slot="props" sortable searchable>
               {{ props.row.number }}

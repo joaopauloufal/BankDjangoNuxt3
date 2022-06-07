@@ -26,6 +26,7 @@
             per-page="10"
             paginated
             default-sort="name"
+            striped
           >
             <o-table-column label="CPF/CNPJ" field="cpf_cnpj" v-slot="props" searchable>
               {{ props.row.cpf_cnpj }}
