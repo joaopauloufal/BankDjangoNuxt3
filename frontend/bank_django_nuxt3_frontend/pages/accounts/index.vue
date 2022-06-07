@@ -52,7 +52,8 @@
                   :to="`/accounts/edit/${props.row.id}`"
                 />
                 <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
-                <FormAccountDepositWithdraw :account="props.row" title="Make Deposit" />
+                <FormAccountDepositWithdraw :account="props.row" operation-type="deposit" />
+                <FormAccountDepositWithdraw :account="props.row" operation-type="withdraw" />
               </div>
             </o-table-column>
             <template #empty>

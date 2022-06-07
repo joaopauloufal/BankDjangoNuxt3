@@ -1,12 +1,13 @@
 <template>
-  <o-button variant="info" icon-pack="fas" icon-right="download" @click="open"/>
+  <o-button v-if="operationType === 'deposit'" variant="info" icon-pack="fas" icon-right="download" @click="open"/>
+  <o-button v-if="operationType === 'withdraw'" variant="success" icon-pack="fas" icon-right="upload" @click="open"/>
   <o-modal :active.sync="isActive">
     <div class="modal-card" style="width: auto">
       <o-loading :active.sync="loading">
         <o-icon pack="fas" icon="sync-alt" size="large" spin></o-icon>
       </o-loading>
       <header class="modal-card-head">
-        <p class="modal-card-title">{{title}} (Account: {{account.number}})</p>
+        <p class="modal-card-title">{{ operationType === 'deposit' ? 'Make Deposit' : 'Make Withdraw'}} (Account: {{account.number}})</p>
         <o-icon
           clickable
           native-type="button"
@@ -38,8 +39,8 @@ import Account from '~~/types/account';
 
 
 const props = defineProps<{
-  title: any,
-  account: Account
+  account: Account,
+  operationType: string
 }>()
 
 const formData = ref({
@@ -49,7 +50,7 @@ const formData = ref({
 
 const isActive = ref(false)
 
-const { accountDepositWithdrawErrors, loading, clearErrors, deposit, getAccounts } = useAccount()
+const { accountDepositWithdrawErrors, loading, clearErrors, deposit, getAccounts, withdraw } = useAccount()
 
 const close = () => {
   isActive.value = false
@@ -62,17 +63,32 @@ const open = () => {
 }
 
 const submit = async () => {
-  await deposit(formData.value).then((response) => {
-    NotificationProgrammatic.open({
-      message: response.message,
-      variant: 'success',
-      rootClass: 'toast-notification',
-      position: 'top',
-      duration: 3000,
+  if (props.operationType === 'deposit') {
+    await deposit(formData.value).then((response) => {
+      NotificationProgrammatic.open({
+        message: response.message,
+        variant: 'success',
+        rootClass: 'toast-notification',
+        position: 'top',
+        duration: 3000,
+      })
+      close()
+      getAccounts()
     })
-    close()
-    getAccounts()
-  })
+  } else if (props.operationType === 'withdraw') {
+    await withdraw(formData.value).then((response) => {
+      NotificationProgrammatic.open({
+        message: response.message,
+        variant: 'success',
+        rootClass: 'toast-notification',
+        position: 'top',
+        duration: 3000,
+      })
+      close()
+      getAccounts()
+    })
+  }
+
 }
 
 

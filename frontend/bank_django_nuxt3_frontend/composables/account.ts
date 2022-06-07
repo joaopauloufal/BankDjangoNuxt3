@@ -89,6 +89,22 @@ export function useAccount () {
     })
   }
 
+  const withdraw = async (params:any):Promise<any> => {
+    loading.value = true
+    return await AccountRepositoryApi.withdraw(params).then((response:any) => {
+      clearErrors()
+      return Promise.resolve(response)
+    }).catch((errors:any) => {
+      Object.keys(errors.data).forEach((value) => {
+        errors.data[value] = errors.data[value].toString()
+      })
+      accountDepositWithdrawErrors.value = errors.data
+      return Promise.reject(errors)
+    }).finally(() => {
+      loading.value = false
+    })
+  }
+
   const deleteAccount = async(bankId:number):Promise<any> => {
     loading.value = true
     return await AccountRepositoryApi.delete(bankId).then(() => {
@@ -129,6 +145,7 @@ export function useAccount () {
     clearAccount,
     clearAccounts,
     deposit,
+    withdraw,
     accounts,
     account,
     accountErrors,

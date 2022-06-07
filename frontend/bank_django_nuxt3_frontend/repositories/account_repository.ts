@@ -27,4 +27,8 @@ export default class AccountRepositoryApi {
     return ApiRepository.put(`accounts/${params.id}/deposit/`, params)
   }
 
+  static withdraw(params:any):Promise<any> {
+    return ApiRepository.put(`accounts/${params.id}/withdraw/`, params)
+  }
+
 }
