@@ -13,11 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Copy .env
-      run: cp backend/bank_django_nuxt3_api/bank_django_nuxt3_api/.env.dev.example backend/bank_django_nuxt3_api/bank_django_nuxt3_api/.env
-
     - name: Run docker-compose
       run: docker-compose up -d
+
+    - name: Wait to service db starts
+      run: sleep 20
 
     - name: Run tests
       run: docker exec -i bank-django-nuxt3-api /bin/bash -c "python manage.py test"
