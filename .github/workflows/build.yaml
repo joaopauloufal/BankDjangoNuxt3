@@ -13,6 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Copy .env
+      run: cp backend/bank_django_nuxt3_api/bank_django_nuxt3_api/.env.dev.example backend/bank_django_nuxt3_api/bank_django_nuxt3_api/.env
+
     - name: Run docker-compose
       run: docker-compose up -d
 

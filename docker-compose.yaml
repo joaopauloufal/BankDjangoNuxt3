@@ -31,6 +31,7 @@ services:
 
   db:
     image: postgres:14.2-alpine
+    container_name: bank-django-nuxt3-db
     volumes:
       - ./backend/.docker/dbdata:/var/lib/postgresql/data/
     ports:
