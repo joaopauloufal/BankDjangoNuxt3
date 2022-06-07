@@ -39,13 +39,14 @@
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
                 <o-button
+                  size="small"
                   tag="router-link"
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
                   :to="`/agencies/edit/${props.row.id}`"
                 />
-                <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
+                <o-button variant="danger" size="small" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
               </div>
             </o-table-column>
             <template #empty>

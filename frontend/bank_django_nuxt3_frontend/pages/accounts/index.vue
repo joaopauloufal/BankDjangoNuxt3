@@ -45,13 +45,14 @@
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
                 <o-button
+                  size="small"
                   tag="router-link"
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
                   :to="`/accounts/edit/${props.row.id}`"
                 />
-                <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
+                <o-button variant="danger" size="small" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
                 <FormAccountDepositWithdraw :account="props.row" operation-type="deposit" />
                 <FormAccountDepositWithdraw :account="props.row" operation-type="withdraw" />
               </div>

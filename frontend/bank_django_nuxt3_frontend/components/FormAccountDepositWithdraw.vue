@@ -1,6 +1,6 @@
 <template>
-  <o-button v-if="operationType === 'deposit'" variant="info" icon-pack="fas" icon-right="download" @click="open"/>
-  <o-button v-if="operationType === 'withdraw'" variant="success" icon-pack="fas" icon-right="upload" @click="open"/>
+  <o-button v-if="operationType === 'deposit'" variant="info" size="small" icon-pack="fas" icon-right="download" @click="open"/>
+  <o-button v-if="operationType === 'withdraw'" variant="success" size="small" icon-pack="fas" icon-right="upload" @click="open"/>
   <o-modal :active.sync="isActive">
     <div class="modal-card" style="width: auto">
       <o-loading :active.sync="loading">
