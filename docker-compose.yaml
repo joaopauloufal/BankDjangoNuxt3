@@ -14,6 +14,8 @@ services:
       - app-network
     depends_on:
       - db
+    links:
+      - db
 
   frontend:
     build: ./frontend
