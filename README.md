@@ -1,6 +1,8 @@
 # Simple Bank
 
 [![Build-Test Status](https://github.com/joaopauloufal/BankDjangoNuxt3/workflows/Build-Test/badge.svg)](https://github.com/joaopauloufal/BankDjangoNuxt3/actions)
+[![codecov](https://codecov.io/gh/joaopauloufal/BankDjangoNuxt3/branch/master/graph/badge.svg?token=2E9LF0F1VL)](https://codecov.io/gh/joaopauloufal/BankDjangoNuxt3)
+
 
 Django, Nuxt3 with Vue 3 composable exercise.
 
