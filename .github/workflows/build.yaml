@@ -16,6 +16,9 @@ jobs:
     - name: Run docker-compose
       run: docker-compose -f docker-compose.prod.yaml up -d
 
-    - name: Run tests
-      run: docker exec -i bank-django-nuxt3-api /bin/bash -c "python manage.py test"
+    - name: Run tests and collect coverage
+      run: docker exec -i bank-django-nuxt3-api /bin/bash -c "coverage run --source='.' manage.py test"
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
       
