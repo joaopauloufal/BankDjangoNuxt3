@@ -4,7 +4,10 @@ services:
   api:
     build: ./backend
     container_name: bank-django-nuxt3-api
-    entrypoint: /usr/src/app/.docker/entrypoint-prod.sh
+    entrypoint: /usr/src/app/.docker/entrypoint.sh
+    user: "${UID}:${GID}"
+    volumes:
+      - ./backend:/usr/src/app
     ports:
       - 8000:8000
     networks:
