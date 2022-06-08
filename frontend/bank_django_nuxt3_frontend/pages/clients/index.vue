@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="columns">
-      <div class="column is-size-4 is-9">Agencies</div>
+      <div class="column is-size-4 is-9">Clients</div>
       <div class="column">
         <o-button
           variant="primary"
@@ -9,9 +9,9 @@
           class="is-pulled-right"
           icon-left="plus"
           icon-pack="fas"
-          to="/agencies/create"
+          to="/clients/create"
         >
-          New Agency
+          New Client
         </o-button>
       </div>
     </div>
@@ -21,37 +21,34 @@
       <div class="columns">
         <div class="column">
           <o-table
-            v-if="agencies"
-            :data="agencies"
+            v-if="clients"
+            :data="clients"
             per-page="10"
             paginated
             default-sort="name"
             striped
           >
-            <o-table-column label="Agency Code" field="agency_code" v-slot="props" sortable searchable>
-              {{ props.row.agency_code }}
+            <o-table-column label="CPF/CNPJ" field="cpf_cnpj" v-slot="props" searchable>
+              {{ props.row.cpf_cnpj }}
             </o-table-column>
             <o-table-column label="Name" field="name" v-slot="props" sortable searchable>
               {{ props.row.name }}
             </o-table-column>
-            <o-table-column label="Bank" field="agency" v-slot="props">
-              {{ props.row.bank.bank_code }} - {{ props.row.bank.name }}
-            </o-table-column>
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
                 <o-button
-                  size="small"
+                 size="small"
                   tag="router-link"
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
-                  :to="`/agencies/edit/${props.row.id}`"
+                  :to="`/clients/edit/${props.row.id}`"
                 />
-                <o-button variant="danger" size="small" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
+                <o-button size="small" variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
               </div>
             </o-table-column>
             <template #empty>
-              <div class="has-text-centered">There are no registered agencies.</div>
+              <div class="has-text-centered">There are no registered clients.</div>
             </template>
           </o-table>
         </div>
@@ -67,25 +64,25 @@ definePageMeta({
   layout: 'custom'
 })
 
-const { getAgencies, deleteAgency, clearAgencies, agencies, loading } = useAgency()
+const { getClients, deleteClient, clearClients, clients, loading } = useClient()
 
-onMounted(() => getAgencies())
+onMounted(() => getClients())
 
-onUnmounted(() => clearAgencies())
+onUnmounted(() => clearClients())
 
 const openConfirmModal = async (data:any):Promise<void> => {
   const instance = ModalProgrammatic.open({
     component: BaseConfirmDialog, 
     props: { 
-      title: `Delete agency #${data.id}`,
-      message: `Are you sure you want to delete agency #${data.id}?`,
+      title: `Delete client #${data.id}`,
+      message: `Are you sure you want to delete client #${data.id}?`,
     }
   })
 
   const result = await instance.promise
 
   if (result.action === 'ok') {
-    await deleteAgency(data.id)
+    await deleteClient(data.id)
   }
 }
  

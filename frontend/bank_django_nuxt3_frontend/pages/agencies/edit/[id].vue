@@ -2,7 +2,7 @@
   <div>
     <BaseBreadcumb>
       <li><NuxtLink to="/agencies">Agencies</NuxtLink></li>
-      <li class="is-active"><a href="#" aria-current="page">Edit Agency #{{$route.params.id}}</a></li>
+      <li class="is-active"><a href="#">Edit Agency #{{$route.params.id}}</a></li>
     </BaseBreadcumb>
     <div class="columns">
       <div class="column is-6">

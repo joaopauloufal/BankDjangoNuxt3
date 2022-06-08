@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="columns">
-      <div class="column is-size-4 is-9">Agencies</div>
+      <div class="column is-size-4 is-9">Accounts</div>
       <div class="column">
         <o-button
           variant="primary"
@@ -9,9 +9,9 @@
           class="is-pulled-right"
           icon-left="plus"
           icon-pack="fas"
-          to="/agencies/create"
+          to="/accounts/create"
         >
-          New Agency
+          New Account
         </o-button>
       </div>
     </div>
@@ -21,21 +21,27 @@
       <div class="columns">
         <div class="column">
           <o-table
-            v-if="agencies"
-            :data="agencies"
+            v-if="accounts"
+            :data="accounts"
             per-page="10"
             paginated
-            default-sort="name"
+            default-sort="number"
             striped
           >
-            <o-table-column label="Agency Code" field="agency_code" v-slot="props" sortable searchable>
-              {{ props.row.agency_code }}
+            <o-table-column label="Number" field="number" v-slot="props" sortable searchable>
+              {{ props.row.number }}
             </o-table-column>
-            <o-table-column label="Name" field="name" v-slot="props" sortable searchable>
-              {{ props.row.name }}
+            <o-table-column label="Type" field="type" v-slot="props" searchable>
+              {{ props.row.type }}
             </o-table-column>
-            <o-table-column label="Bank" field="agency" v-slot="props">
-              {{ props.row.bank.bank_code }} - {{ props.row.bank.name }}
+            <o-table-column label="Client" field="client" v-slot="props" searchable>
+              {{ props.row.client.cpf_cnpj }} - {{ props.row.client.name }}
+            </o-table-column>
+            <o-table-column label="Agency" field="agency" v-slot="props" searchable>
+              {{ props.row.agency.agency_code }} - {{ props.row.agency.name }}
+            </o-table-column>
+            <o-table-column label="Balance" field="balance" v-slot="props" sortable>
+              {{ props.row.balance }}
             </o-table-column>
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
@@ -45,13 +51,15 @@
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
-                  :to="`/agencies/edit/${props.row.id}`"
+                  :to="`/accounts/edit/${props.row.id}`"
                 />
                 <o-button variant="danger" size="small" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
+                <FormAccountDepositWithdraw :account="props.row" operation-type="deposit" />
+                <FormAccountDepositWithdraw :account="props.row" operation-type="withdraw" />
               </div>
             </o-table-column>
             <template #empty>
-              <div class="has-text-centered">There are no registered agencies.</div>
+              <div class="has-text-centered">There are no registered accounts.</div>
             </template>
           </o-table>
         </div>
@@ -67,25 +75,25 @@ definePageMeta({
   layout: 'custom'
 })
 
-const { getAgencies, deleteAgency, clearAgencies, agencies, loading } = useAgency()
+const { getAccounts, deleteAccount, clearAccounts, accounts, loading } = useAccount()
 
-onMounted(() => getAgencies())
+onMounted(() => getAccounts())
 
-onUnmounted(() => clearAgencies())
+onUnmounted(() => clearAccounts())
 
 const openConfirmModal = async (data:any):Promise<void> => {
   const instance = ModalProgrammatic.open({
     component: BaseConfirmDialog, 
     props: { 
-      title: `Delete agency #${data.id}`,
-      message: `Are you sure you want to delete agency #${data.id}?`,
+      title: `Delete account #${data.id}`,
+      message: `Are you sure you want to delete account #${data.id}?`,
     }
   })
 
   const result = await instance.promise
 
   if (result.action === 'ok') {
-    await deleteAgency(data.id)
+    await deleteAccount(data.id)
   }
 }
  

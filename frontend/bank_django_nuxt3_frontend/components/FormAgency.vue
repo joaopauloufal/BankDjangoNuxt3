@@ -57,7 +57,7 @@ import Agency from '~~/types/agency';
     initialData: Agency
   }>()
 
-  let formData = ref({
+  const formData = ref({
     id: -1,
     agency_code: '',
     bank: '' as any,

@@ -1,7 +1,7 @@
 interface AgencyErrors {
-  agency_code: any,
-  bank: any
-  name: any
+  agency_code: Array<string>,
+  bank: Array<string>
+  name: Array<string>
 }
 
 export default AgencyErrors

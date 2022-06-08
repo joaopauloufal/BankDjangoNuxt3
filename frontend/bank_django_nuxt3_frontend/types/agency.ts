@@ -3,7 +3,7 @@ import Bank from "./bank"
 interface Agency {
   id: number,
   agency_code: string,
-  bank: Bank
+  bank: Bank,
   name: string
 }
 

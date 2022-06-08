@@ -1,6 +1,6 @@
 interface BankErrors {
-  bank_code: any,
-  name: any
+  bank_code: Array<string>,
+  name: Array<string>
 }
 
 export default BankErrors

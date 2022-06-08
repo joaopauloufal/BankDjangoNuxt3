@@ -26,6 +26,7 @@
             per-page="10"
             paginated
             default-sort="name"
+            striped
           >
             <o-table-column label="Bank Code" field="bank_code" v-slot="props" sortable searchable>
               {{ props.row.bank_code }}
@@ -36,13 +37,14 @@
             <o-table-column label="Actions" v-slot="props">
               <div class="buttons">
                 <o-button
+                  size="small"
                   tag="router-link"
                   variant="primary"
                   icon-right="pencil"
                   icon-pack="fas"
                   :to="`/banks/edit/${props.row.id}`"
                 />
-                <o-button variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
+                <o-button size="small" variant="danger" icon-pack="fas" icon-right="trash" @click="openConfirmModal(props.row)"/>
               </div>
             </o-table-column>
             <template #empty>
@@ -70,11 +72,11 @@ onUnmounted(() => clearBanks())
 
 const openConfirmModal = async (data:any):Promise<void> => {
   const instance = ModalProgrammatic.open({
-      component: BaseConfirmDialog, 
-      props: { 
-        title: `Delete bank #${data.id}`,
-        message: `Are you sure you want to delete bank #${data.id}?`,
-      }
+    component: BaseConfirmDialog, 
+    props: { 
+      title: `Delete bank #${data.id}`,
+      message: `Are you sure you want to delete bank #${data.id}?`,
+    }
   })
 
   const result = await instance.promise

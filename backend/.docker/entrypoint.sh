@@ -2,13 +2,13 @@
 
 if [ "$DATABASE" = "postgres" ]
 then
-    echo "Esperando pelo servico do postgres..."
+    echo "Waiting for postgres service..."
 
     while ! nc -z $SQL_HOST $SQL_PORT; do
       sleep 0.1
     done
 
-    echo "PostgreSQL iniciado"
+    echo "PostgreSQL started."
 fi
 
 chown -R $GID:$UID /usr/src/app
