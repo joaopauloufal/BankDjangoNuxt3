@@ -7,3 +7,4 @@ markdown==3.3.6
 django-cors-headers==3.11.0
 gunicorn==20.1.0
 factory-boy==3.2.1
+coverage==6.4.1

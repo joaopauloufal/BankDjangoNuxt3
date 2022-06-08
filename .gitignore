@@ -1,4 +1,5 @@
 *.pyc
 *.env
 *db.sqlite3
+*.coverage
 backend/.docker/dbdata
