@@ -1,4 +1,7 @@
 *.pyc
 *.env
 *db.sqlite3
+*.coverage
+*coverage.xml
+cove
 backend/.docker/dbdata
