@@ -11,9 +11,6 @@ then
     echo "PostgreSQL started."
 fi
 
-chown -R $GID:$UID /usr/src/app
-chmod -R 777 /usr/src/app
-
 cp -r ./bank_django_nuxt3_api/.env.dev.example ./bank_django_nuxt3_api/.env
 python manage.py migrate
 python manage.py initadmin
